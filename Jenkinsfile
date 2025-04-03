@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('install-pip-deps') {
             steps {
-                echo 'Hello World1'
+                ls -a
             }
         }
         stage('deploy-to-dev') {
