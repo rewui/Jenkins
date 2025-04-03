@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('install-pip-deps') {
             steps {
-                bat "ls -a"
+                bat "node --version"
             }
         }
         stage('deploy-to-dev') {
