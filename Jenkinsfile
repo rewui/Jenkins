@@ -12,7 +12,7 @@ pipeline {
         stage('deploy-to-dev') {
             steps {
                 script {
-                    deploy("dev")
+                    deploy("dev", 7001)
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
         stage('deploy-to-staging') {
             steps {
                 script {
-                    deploy("staging")
+                    deploy("staging", 7002)
                 }
             }
         }
@@ -40,7 +40,7 @@ pipeline {
         stage('deploy-to-preprod') {
             steps {
                 script {
-                    deploy("preprod")
+                    deploy("preprod", 7003)
                 }
             }
         }
@@ -54,7 +54,7 @@ pipeline {
         stage('deploy-to-prod') {
             steps {
                 script {
-                    deploy("prod")
+                    deploy("prod", 7004)
                 }
             }
         }
@@ -67,14 +67,16 @@ pipeline {
         }
     }
 }
- def build(){
+def build(){
     echo "Installing all required depdendencies"
     git branch: 'main', poll: false, url: 'https://github.com/mtararujs/python-greetings.git'
-    bat "dir"
     bat "pip install -r requirements.txt"
- }
-def deploy(String environment){
+}
+def deploy(String environment, int port){
     echo "Deployment to ${environment} has started"
+    git branch: 'main', poll: false, url: 'https://github.com/mtararujs/python-greetings.git'
+    bat "pm2 delete greetings-app-${environment} & set "errorlevel=0""
+    bat "pm2 start app.py --name greetings-app-${environment} --port ${port}"
 }
 def tests(String environment){
     echo "Tests on ${environment} has started"
