@@ -80,4 +80,7 @@ def deploy(String environment, int port){
 }
 def tests(String environment){
     echo "Tests on ${environment} has started"
+    git branch: 'main', poll: false, url: 'https://github.com/mtararujs/course-js-api-framework'
+    bat "npm install"
+    bat "npm run greetings greetings_${environment}"
 }
