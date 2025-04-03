@@ -33,7 +33,7 @@ pipeline {
         stage('tests-on-staging') {
             steps {
                 script {
-                    tests("staging")
+                    tests("stg")
                 }
             }
         }
