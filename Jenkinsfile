@@ -26,7 +26,7 @@ pipeline {
         stage('deploy-to-staging') {
             steps {
                 script {
-                    deploy("staging", 7002)
+                    deploy("stg", 7002)
                 }
             }
         }
