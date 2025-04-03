@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('install-pip-deps') {
             steps {
-               echo 'Installing all required depdendencies'
+               script {
+                    build()
+                }
             }
         }
         stage('deploy-to-dev') {
@@ -65,7 +67,11 @@ pipeline {
         }
     }
 }
-
+ def build(){
+    echo "Installing all required depdendencies"
+    git branch: 'main', poll: false, url: 'https://github.com/mtararujs/python-greetings.git'
+    bat "pip install -r requirements.txt"
+ }
 def deploy(String environment){
     echo "Deployment to ${environment} has started"
 }
