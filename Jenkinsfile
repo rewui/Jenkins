@@ -4,48 +4,71 @@ pipeline {
     stages {
         stage('install-pip-deps') {
             steps {
-                bat "node --version"
+               echo 'Installing all required depdendencies'
             }
         }
         stage('deploy-to-dev') {
             steps {
-                echo 'Hello World2'
+                script {
+                    deploy("dev")
+                }
             }
         }
         stage('tests-on-dev') {
             steps {
-                echo 'Hello World3'
+                script {
+                    tests("dev")
+                }
             }
         }
         stage('deploy-to-staging') {
             steps {
-                echo 'Hello World4'
+                script {
+                    deploy("staging")
+                }
             }
         }
         stage('tests-on-staging') {
             steps {
-                echo 'Hello World5'
+                script {
+                    tests("staging")
+                }
             }
         }
         stage('deploy-to-preprod') {
             steps {
-                echo 'Hello World6'
+                script {
+                    deploy("preprod")
+                }
             }
         }
         stage('tests-on-preprod') {
             steps {
-                echo 'Hello World7'
+                script {
+                    tests("preprod")
+                }
             }
         }
         stage('deploy-to-prod') {
             steps {
-                echo 'Hello World8'
+                script {
+                    deploy("prod")
+                }
             }
         }
         stage('tests-on-prod') {
             steps {
-                echo 'Hello World9'
+                script {
+                    tests("prod")
+                }
             }
         }
     }
+}
+
+def deploy(String environment){
+    echo 'Deployment to ${environment} has started'
+}
+def tests(String environment){
+    echo 'Tests on ${environment} has started'
 }
